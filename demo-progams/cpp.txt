@@ -2,7 +2,7 @@
  * Test.cpp
  *
  *  Created on: May 10, 2018
- *      Author: Carville
+ *      Author: cs-13
  */
 
 #include <iostream>
@@ -22,9 +22,6 @@ class ContactInfo
 			contactName = "";
 			contactNumber = "";
 		}
-
-		//Deconstructor
-		~ ContactInfo();
 
 		/*
 		 * Displays the contachName and contactNumber of the Object instance.
