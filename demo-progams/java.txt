@@ -1,0 +1,180 @@
+/*
+ * Test.java
+ *
+ * Created on: May 10, 2018
+ *     Author: 2166120
+ */
+
+import java.util.*;
+
+public class Test {
+    static Scanner keyboard = new Scanner(System.in);
+    static boolean problem = false;
+	
+    public static void main(String[] args) {
+    	Test test;
+        try {
+            test = new Test();
+            test.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+     * Populates the given array via user input.
+     */
+    public ContactInfo[] contactList(int n) {
+        ContactInfo[] newList = new ContactInfo[n];
+        String newName;
+        String newNumber;
+
+        for (int i = 0; i < n; i++) {
+            System.out.print("Name: ");
+            newName = keyboard.nextLine();
+            newList[i].setContactName(newName);
+
+            System.out.print("Number: ");
+            newNumber = keyboard.nextLine();
+            newList[i].setContactNumber(newNumber);
+        }
+
+        return newList;
+    }
+    
+    /*
+     * Sorts the given array lexicographically using the contactName of the objects.
+     */
+    public void sortListByName(ContactInfo[] contactList, int listSize) {
+        for (int i = 0; i < listSize-1; i++) {
+            for (int j = i+1; j < listSize; j++) {
+                if ( contactList[i].getContactName().compareToIgnoreCase( contactList[j].getContactName() ) > 0 ) {
+                    ContactInfo temp = contactList[j];
+                    contactList[i] = contactList[j];
+                    contactList[j] = temp; 
+                }
+            }
+        }
+    }
+    
+    /*
+     * Sorts the given array numerically using the contactNumber of the objects.
+     */
+    public void sortListByNumber(ContactInfo[] contactList, int listSize) {
+        for (int i = 0; i < listSize-1; i++) {
+            for (int j = i+1; j < listSize; j++) {
+                if ( contactList[i].getContactNumber().compareToIgnoreCase( contactList[j].getContactNumber() ) > 0 ) {
+                    ContactInfo temp = contactList[j];
+                    contactList[i] = contactList[j];
+                    contactList[j] = temp; 
+                }
+            }
+        }
+    }
+
+    /*
+     * Shows the information about each Object in the given array.
+     */
+    public void showContactList(ContactInfo[] contactList, int n) {
+        for (int i = 0; i < n; i++) {
+            contactList[i].showInformation();
+        }
+        System.out.println();
+    }
+
+    public void run() {
+        Scanner kbd = new Scanner(System.in);
+        int n = 0;
+        System.out.println("How many will you sort?");
+        System.out.print("Input: ");
+        do {
+            problem = false;
+            try {
+                n = Integer.parseInt(keyboard.nextLine());
+            } catch (NumberFormatException x) {
+                problem = true;
+            }
+        } while (problem == true);
+
+        ContactInfo[] newList = contactList(n);
+        System.out.println("Raw List");
+        for (int i = 0; i < n; i++) {
+            newList[i].showInformation();
+        }
+        System.out.println();
+
+        int choice = 0;
+        while (choice != 3) {
+            System.out.println("Sort the list by?<1/2>");
+            System.out.println("1. Name");
+            System.out.println("2. Number");
+            System.out.println("3. Exit");
+            System.out.print("Input: ");
+            do {
+                problem = false;
+	       		try {
+ 	            	 n = Integer.parseInt(kbd.nextLine());
+	       		} catch (NumberFormatException x) {
+					 problem = true;
+	       		}
+                if ((n < 0) || (n > 3)) {
+                    problem = true;
+                }
+            } while (problem == true);
+	       
+            switch (choice) {
+                case 1:
+                    System.out.println("Sorted List by Name");
+                    sortListByName(newList, n);
+                    showContactList(newList, n);
+                break;
+
+                case 2:
+                    System.out.println("Sorted List by Number");
+                    sortListByNumber(newList, n);
+                    showContactList(newList, n);
+                break;
+
+                case 3:
+                    System.out.print("Program Terminated.");
+                break;
+            }
+        }
+        System.exit(0);
+    }
+}
+
+
+class ContactInfo {
+     private String contactName;
+     private String contactNumber;
+
+     public ContactInfo() {
+	  contactName = "";
+	  contactNumber = "";
+     }
+
+     /*
+      * Displays the contachName and contactNumber of the Object instance.
+      */
+     public void showInformation() {
+	  System.out.println( getContactName() + " : " + getContactNumber() );
+     }
+
+     //Setters and Getters
+     public void setContactName(String newContactName) {
+	  contactName = newContactName;
+     }
+
+     public void setContactNumber(String newContactNumber) {
+	  contactNumber = newContactNumber;
+     }
+
+     public String getContactName() {
+	  return contactName;
+     }
+
+     public String getContactNumber() {
+	  return contactNumber;
+     }
+}
