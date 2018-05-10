@@ -1,0 +1,82 @@
+class Client:
+    name = ""
+    contact = ""
+    
+    def __init__(self, name, contact):
+        self.name = name
+        self.contact = contact
+        
+    def __repr__(self):
+        return repr((self.name, self.contact))
+    
+    def set_name(self, new_name):
+        self.name = new_name
+        
+    def set_contact(self, new_contact):
+        self.contact = new_contact
+    
+    def get_name(self):
+        return self.name
+    
+    def get_contact(self):
+        return self.contact
+
+#Populates the given array via user input.
+def contact_list(n):
+    new_list = [n]
+    
+    for i in range(0, n):
+        message = "Contact Information " + str(i+1)
+        print message
+        print "Name: ",
+        new_name = raw_input()
+        print "Number: ",
+        new_number = raw_input()
+        
+        new_info = Client(new_name, new_number)
+        new_info.set_contact(new_number)
+        new_list.append(new_info)
+        
+    return new_list
+
+#Shows the information about each Object in the given array.
+def show_contact_list(contact_list):
+    for i in range (0, len(contact_list)):
+        contact_list[i].get_name() + " : " + contact_list[i].get_contact()
+    print ""
+
+def main():
+    print "How many will you sort? ",
+    n = input()
+    
+    print ""
+    new_list = contact_list(n)
+    print "Raw List"
+    for i in range(1, n+1):
+        print new_list[i].get_name() + " : " + new_list[i].get_contact()
+        
+    choice = 0
+    while (choice != 3):
+        print ""
+        print "Sort the list by?<1/2>"
+        print "1. Name"
+        print "2. Number"
+        print "3. Exit"
+        print "Input: ",
+        choice = input()
+        print ""
+        
+        #Python does not have a swtich statement
+        if choice == 1:
+            print "Sorted List by Name"
+            sorted_list = sorted(new_list, key=lambda client: client.name, reverse=True)
+            show_contact_list(sorted_list)
+        elif choice == 2:
+            print "Sorted List by Number"
+            sorted_list = sorted(new_list, key=lambda client: client.contact)
+            show_contact_list(sorted_list)
+        else:
+            print "Program Terminated"
+    
+if __name__ == "__main__":
+    main()
