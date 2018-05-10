@@ -1,0 +1,163 @@
+/*
+ * Test.cpp
+ *
+ *  Created on: May 10, 2018
+ *      Author: Carville
+ */
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class ContactInfo
+{
+	private:
+		string contactName;
+		string contactNumber;
+
+	public:
+		ContactInfo()
+		{
+			contactName = "";
+			contactNumber = "";
+		}
+
+		void showInformation()
+		{
+			cout << getContactName() << " : " << getContactNumber() << endl;
+		}
+
+		void setContactName(string newContactName)
+		{
+			contactName = newContactName;
+		}
+
+		void setContactNumber(string newContactNumber)
+		{
+			contactNumber = newContactNumber;
+		}
+
+		string getContactName()
+		{
+			return contactName;
+		}
+
+		string getContactNumber()
+		{
+			return contactNumber;
+		}
+};
+
+ContactInfo *contactList(int n)
+{
+	ContactInfo *newList = new ContactInfo[n];
+	string newName;
+	string newNumber;
+
+	for(int i = 0; i < n; i++)
+	{
+		cout << "Name: ";
+		cin >> newName;
+		newList[i].setContactName(newName);
+
+		cout << "Number: ";
+		cin >> newNumber;
+		newList[i].setContactNumber(newNumber);
+	}
+
+	return newList;
+}
+
+void sortListByName(ContactInfo contactList[], int listSize)
+{
+	for(int i = 0; i < listSize; i++)
+	{
+		for(int j = i+1; j < listSize; j++)
+		{
+			if(contactList[i].getContactName() > contactList[j].getContactName())
+			{
+				ContactInfo temp = contactList[j];
+				contactList[i] = contactList[j];
+				contactList[j] = temp;
+			}
+
+		}
+	}
+}
+
+void showContactList(ContactInfo contactList[], int n)
+{
+	for(int i = 0; i < n; i++)
+	{
+		contactList[i].showInformation();
+	}
+	cout << endl;
+}
+
+void sortListByNumber(ContactInfo contactList[], int listSize)
+{
+	for(int i = 0; i < listSize; i++)
+	{
+		for(int j = i+1; j < listSize; j++)
+		{
+			if(contactList[i].getContactNumber() > contactList[j].getContactNumber())
+			{
+				ContactInfo temp = contactList[j];
+				contactList[i] = contactList[j];
+				contactList[j] = temp;
+			}
+
+		}
+	}
+}
+
+int main()
+{
+	int n;
+	cout << "How many will you sort?" << endl;
+	cout << "Input: ";
+	cin >> n;
+
+	ContactInfo *newList = contactList(n);
+	cout << "Raw List" << endl;
+	for(int i = 0; i < n; i++)
+	{
+		newList[i].showInformation();
+	}
+	cout << endl;
+
+	int choice = 0;
+	while(choice != 3)
+	{
+		cout << "Sort the list by?<1/2>" << endl;
+		cout << "1. Name" << endl;
+		cout << "2. Number" << endl;
+		cout << "3. Exit" << endl;
+		cout << "Input: ";
+		cin >> choice;
+		cout << endl;
+
+		switch(choice)
+		{
+			case 1:
+				cout << "Sorted List by Name" << endl;
+				sortListByName(newList, n);
+				showContactList(newList, n);
+			break;
+
+			case 2:
+				cout << "Sorted List by Number" << endl;
+				sortListByNumber(newList, n);
+				showContactList(newList, n);
+			break;
+
+			case 3:
+				cout << "Program Terminated.";
+			break;
+		}
+	}
+	return 0;
+}
+
+
+
