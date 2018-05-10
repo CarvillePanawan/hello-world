@@ -16,17 +16,25 @@ class ContactInfo
 		string contactNumber;
 
 	public:
+		//Constructor
 		ContactInfo()
 		{
 			contactName = "";
 			contactNumber = "";
 		}
 
+		//Deconstructor
+		~ ContactInfo();
+
+		/*
+		 * Displays the contachName and contactNumber of the Object instance.
+		 */
 		void showInformation()
 		{
 			cout << getContactName() << " : " << getContactNumber() << endl;
 		}
 
+		//Setters and Getters
 		void setContactName(string newContactName)
 		{
 			contactName = newContactName;
@@ -48,6 +56,9 @@ class ContactInfo
 		}
 };
 
+/*
+ *Populates the given array via user input.
+ */
 ContactInfo *contactList(int n)
 {
 	ContactInfo *newList = new ContactInfo[n];
@@ -68,6 +79,9 @@ ContactInfo *contactList(int n)
 	return newList;
 }
 
+/*
+ *Sorts the given array lexicographically using the contactName of the objects.
+ */
 void sortListByName(ContactInfo contactList[], int listSize)
 {
 	for(int i = 0; i < listSize; i++)
@@ -84,16 +98,9 @@ void sortListByName(ContactInfo contactList[], int listSize)
 		}
 	}
 }
-
-void showContactList(ContactInfo contactList[], int n)
-{
-	for(int i = 0; i < n; i++)
-	{
-		contactList[i].showInformation();
-	}
-	cout << endl;
-}
-
+/*
+ *Sorts the given array numerically using the contactNumber of the objects.
+ */
 void sortListByNumber(ContactInfo contactList[], int listSize)
 {
 	for(int i = 0; i < listSize; i++)
@@ -109,6 +116,18 @@ void sortListByNumber(ContactInfo contactList[], int listSize)
 
 		}
 	}
+}
+
+/*
+ * Shows the information about each Object in the given array.
+ */
+void showContactList(ContactInfo contactList[], int n)
+{
+	for(int i = 0; i < n; i++)
+	{
+		contactList[i].showInformation();
+	}
+	cout << endl;
 }
 
 int main()
